@@ -28,9 +28,18 @@ db schema:
 
 ```sql
 CREATE TABLE rpik (
-    "timestamp" timestamp without time zone DEFAULT timezone('utc'::text, now()),
-    rpik bytea,
-    metadata bytea,
-    rssi integer
+    scannerId int2 not null,
+    "timestamp" timestamp without time zone not null DEFAULT timezone('utc'::text, now()),
+    rpik bytea not null,
+    metadata bytea not null,
+    rssi integer not null
 );
 ```
+
+Usage:
+
+```
+sudo ./cwascan 0 "postgresql://cwascan:password@postgres.local.yawk.at:5432/cwascan"
+```
+
+The 0 is the scanner ID column which allows distinguishing multiple receivers in the same table.
